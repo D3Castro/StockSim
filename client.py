@@ -1,9 +1,10 @@
+import threading
 import socket
 import time
 import sys
 
 class Client:
-    __init__(self,cashAvailable):
+    def __init__(self,cashAvailable):
         self.ballance = cashAvailable
         self.yielding = None
         self.purchasedStocks  = []
@@ -18,6 +19,7 @@ class Stack:
         return self.list.pop()
     def isEmpty(self):
         return len(self.list) == 0
+
 
 #server should get the first string in each array of strings
 def startTransaction(action,client,numStocks,price,serverIP="192.168.1.11",portNum=2044):
@@ -55,12 +57,19 @@ def startTransaction(action,client,numStocks,price,serverIP="192.168.1.11",portN
 
 #function to get info from text file and push to a stack
 def getInfo(textFile,stockStack):
+    return
     with open(textFile,"r") as file:
             for line in file:
                 x = line
                 #String formatting done here
                 stockStack.push(x)
-    
+
+def printInfo(clientList):   
+    for i in range(len(clientList)):
+        print "client_", i, " has a balance of ", clientList[i].ballance
+        print "client_", i, " has a yielding of ", clientList[i].yielding
+        print "======================================\n"
+        
 if __name__ == "__main__":
     clients = []
     stocks = []
@@ -69,6 +78,9 @@ if __name__ == "__main__":
     numDiffStocks = 5
     numClients    = 2
     textFileName  = "someName.txt"
+    
+    #intialize timer for printInfo every 10 seconds
+    
     
     #initialize clients
     for i in range(numClients):
@@ -80,10 +92,7 @@ if __name__ == "__main__":
         tempStack = Stack()
         getInfo(textFileName,tempStack)
         stocks.append(tempStack)
-   
-            
-    
-    
+ 
     #print balance and yielding of each client every 10 seconds
     #Assume price information available at client side (stack known)
     #Clients buy/sell and know their balance/yielding

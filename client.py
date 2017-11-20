@@ -5,6 +5,19 @@ class Client:
     __init__(self,cashAvailable):
         self.wallet = cashAvailable
         self.owned  = []
+ 
+class Stack:
+    def __init__(self):
+        self.list = []
+
+    def push(self,item):
+        self.list.append(item)
+
+    def pop(self):
+        return self.list.pop()
+
+    def isEmpty(self):
+        return len(self.list) == 0
 
 #server should get the first string in each array of strings
 def buy(client,stock,numStocks,price):
@@ -43,29 +56,15 @@ def sell(client,stock,numStocks,price):
         print recvMsg
     clientSocket.close()
 
-def getInfo():
-    #AF_INET for ipv4, .6 for ipv6
-    try:
-        clientSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    except socket.error,msg:
-        print "failed. error code: "+ str(msg[0])+ " and error msg = "+msg[1]
-        sys.exit()
-    serverIP = "192.168.1.11"
-    clientSocket.connect((serverIP,2044))
-    clientSocket.sendall("INFO")
+#function to get info from text file and push to a stack
+def getInfo(textFile,stockStack):
+    with open(textFile,"r") as file:
+            for line in file:
+                x = line
+                #String formatting done here
+                stockStack.push(x)
     
-    stocksAvailable = []
-    
-    data = clientSocket.recv(4096)
-    while data:
-        #find way to splice the string at each white space
-        stockprice = data
-        stockName = data
-        numStocks = data
-        stocksAvailable.append((stockPrice,stockName,numStocks))
-    
-    clientSocket.close()
-    return stocksAvailable
+                
     
 if __name__ == "__main__":
     clients = []
@@ -79,6 +78,7 @@ if __name__ == "__main__":
     
     #print balance and yielding of each client every 10 seconds
     #each client sleeps for 1 seconds after comple
+    
     
     
     

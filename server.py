@@ -29,9 +29,9 @@ while True:
             #Transaction failure of 10% here
             if operation[0] == "BUY":
                 #What is operation[1] in this case? ----------------------
-                stock_name = operation[2]
-                num_shares = operation[3]
-                pper_share = operation[4]
+                stock_name = operation[1]
+                num_shares = operation[2]
+                pper_share = operation[3]
                 #Z% probability to buy
                 #Update balance and what has been bought
                 #Find out what to send back

@@ -68,17 +68,25 @@ def getInfo(textFile,stockStack):
     
 if __name__ == "__main__":
     clients = []
-    #100,000 cash to spend
-    for i in range(2):
-        tempClient = Client(100,000)
+    stocks = []
+    
+    cashAvailable = 100000
+    numDiffStocks = 5
+    numClients    = 2
+    textFileName  = "someName.txt"
+    
+    #initialize clients
+    for i in range(numClients):
+        tempClient = Client(cashAvailable)
         clients.append(tempClient)
-    #Clients initialized
     
-    #stocks = getInfo()
-    
-    #print balance and yielding of each client every 10 seconds
-    #each client sleeps for 1 seconds after comple
-    
+    #initialize stocks
+    for i in range(numDiffStocks):
+        tempStack = Stack()
+        getInfo(textFileName,tempStack)
+        stocks.append(tempStack)
+   
+            
     
     
     
